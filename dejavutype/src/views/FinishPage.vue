@@ -1,68 +1,62 @@
 <template>
   <div class="page">
-    <div class="header">
-      Game Finished
+    <div>
+      <p class="p-lead">final score</p>
     </div>
-    <div class="main">
-      <p class="title-leaderboard">Leaderboard</p>
-      <!-- Satu set player & scorenya -->
-      <div class="score-card">
-        <div>
-          <p>thomas</p>
-        </div>
-        <div>
-          <p>65</p>
-        </div>
-      </div>
-      <!-- -------------------------- -->
-      <div class="score-card">
-        <div>
-          <p>tamara</p>
-        </div>
-        <div>
-          <p>72</p>
-        </div>
-      </div>
-      <div class="score-card">
-        <div>
-          <p>adam</p>
-        </div>
-        <div>
-          <p>59</p>
-        </div>
-      </div>
+    <div class="final-mid">
+      <FinalScoreCard/>
+      <FinalScoreCard/>
+      <FinalScoreCard/>
+      <FinalScoreCard/>
     </div>
     <div class="footer quit-only">
-      <button @click="redirToLandingPage" class="my-btn">Quit</button>
+      <button @click="redirToLandingPage" class="my-btn">quit</button>
     </div>
   </div>
 </template>
 
 <script>
+import FinalScoreCard from '../components/FinalScoreCard.vue'
 export default {
   name: 'FinishPage',
   methods: {
     redirToLandingPage: function () {
       this.$router.push('/')
     }
+  },
+  components: {
+    FinalScoreCard
   }
 }
 </script>
 
 <style>
-.score-card {
-  width: 20%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 2rem;
-}
-.title-leaderboard {
-  margin-top: 2rem;
-  font-size: 2.5rem;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #DCB142;
-}
 .quit-only {
   justify-content: center;
+}
+.final-mid {
+  overflow-y: scroll;
+  height: 70%;
+}
+.footer {
+  margin-top: 1rem;
+  height: 15%;
+  display: flex;
+  align-items: center;
+}
+.final-score-card {
+  height: 3.25rem;
+  width: 20rem;
+  background-color: #DCB142;
+  color: #234565;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  font-weight: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: .75rem 0;
+  padding: 0 1rem;
+  box-shadow: -5px 7px 26px -11px rgba(0,0,0,0.66);
 }
 </style>
