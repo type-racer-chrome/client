@@ -44,9 +44,16 @@ export default {
     }
   },
   created () {
-    this.socket.on('joinGame', (name) => {
-      this.$store.commit('ADD_PLAYERS', name)
-      console.log(this.$store.state.players)
+    // this.socket.on('joinGame', (name) => {
+    //   this.$store.commit('ADD_PLAYERS', name)
+    //   // console.log(this.$store.state.players)
+    //   console.log('berapa kali')
+    // })
+
+    this.socket.on('deleteUser', (username) => {
+      const index = this.$store.state.players.indexOf(username)
+      // console.log(index, 'INI INDEXXXXX')
+      this.$store.commit('DELETE_USER', index)
     })
   }
 }

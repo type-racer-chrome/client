@@ -37,7 +37,13 @@ export default new Vuex.Store({
       state.player = name
     },
     ADD_PLAYERS (state, player) {
+      console.log(player)
+      // console.log('Kehit satu-satu')
+      // console.log(state.players)
       state.players.push(player)
+    },
+    DELETE_USER (state, index) {
+      state.players.splice(index, 1)
     }
   },
   actions: {
