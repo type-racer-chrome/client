@@ -7,8 +7,8 @@
     <div class="big-space">
       <div class="left">
         <p class="tag">nama playernya</p>
-        <form>
-          <input class="input-form extended" type="text" placeholder="player ngetik disini">
+        <form v-on:submit.prevent="next">
+          <input class="input-form extended" type="text"  placeholder="player ngetik disini">
         </form>
       </div>
       <div class="right">
@@ -29,7 +29,24 @@
 
 <script>
 export default {
-  name: 'GamePage'
+  name: 'GamePage',
+  data () {
+    return {
+      playerinput: '',
+      words: [
+        'JavaScript',
+        'Machinist',
+        'Safety',
+        'Coronavirus',
+        'Wochkrautzenmach',
+        'Purgatoriumexcretum',
+        'Purwadhika'
+      ]
+    }
+  },
+  computed: {
+    currentWord () {}
+  }
 }
 </script>
 

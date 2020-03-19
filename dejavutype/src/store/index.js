@@ -5,6 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    arrayOfWords: [
+      'JavaScript',
+      'Machinist',
+      'Safety',
+      'Coronavirus',
+      'Wochkrautzenmach',
+      'Purgatoriumexcretum',
+      'Purwadhika'
+    ]
   },
   mutations: {
   },
