@@ -4,7 +4,8 @@
     <h2 class="title">dejavutype</h2>
     <p class="tag">please enter your name</p>
     <form @submit.prevent="redirToWaitingRoom">
-        <input class="input-form" type="text" placeholder="noob99" v-model="username">
+        <input class="input-form" v-model="name" type="text" placeholder="noob99">
+        <button type="submit" class="my-btn-go">GO!</button>
     </form>
   </div>
 </template>
