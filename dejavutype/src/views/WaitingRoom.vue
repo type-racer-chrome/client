@@ -30,11 +30,27 @@ export default {
   name: 'WaitingRoom',
   methods: {
     redirToGamePage: function () {
-      this.$router.push('/game')
+      this.socket.emit('chat', 'ini message')
+
+      // this.socket.on('message', (msg) => {
+      //   console.log(msg)
+      // })
     },
     redirToLandingPage: function () {
       this.$router.push('/')
     }
+
+  },
+  computed: {
+    socket () {
+      return this.$store.state.socket
+    }
+  },
+  created () {
+    this.socket.on('message', (msg) => {
+      console.log(msg)
+      this.$router.push('/game')
+    })
   }
 }
 </script>

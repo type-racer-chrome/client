@@ -4,18 +4,48 @@
     <h2 class="title">dejavutype</h2>
     <p class="tag">please enter your name</p>
     <form @submit.prevent="redirToWaitingRoom">
-        <input class="input-form" type="text" placeholder="noob99">
+        <input class="input-form" type="text" placeholder="noob99" v-model="username">
     </form>
   </div>
 </template>
 
 <script>
+// import io from '../config/socket'
+
 export default {
   name: 'LandingPage',
+  data () {
+    return {
+      username: ''
+    }
+  },
   methods: {
     redirToWaitingRoom: function () {
-      this.$router.push('/waitingroom')
+      if (this.username.length > 0) {
+        // this.socket.emit('joinRoom')
+        localStorage.setItem('username', this.username)
+        this.$vToastify.success({
+          title: `welcome ${this.username}`,
+          body: 'please waiting for another opponent'
+        })
+        this.$router.push('/waitingroom')
+      } else {
+        this.$vToastify.error({
+          title: 'Hey!',
+          body: 'You have tell your name :('
+        })
+      }
     }
+  },
+  computed: {
+    socket () {
+      return this.$store.state.socket
+    }
+  },
+  created () {
+    this.socket.on('hi', (msg) => {
+      console.log(msg)
+    })
   }
 }
 </script>
