@@ -6,7 +6,7 @@
     </div>
     <div class="big-space">
       <div class="left">
-        <p class="tag">nama playernya Your score: {{ currentScore }}</p>
+        <p class="tag">{{ getPlayer }} Your score: {{ currentScore }}</p>
         <form v-on:submit.prevent="next">
           <input class="input-form extended" type="text" v-model="playerinput" placeholder="player ngetik disini">
         </form>
@@ -52,6 +52,9 @@ export default {
     },
     currentScore: function () {
       return this.$store.state.playerScore
+    },
+    getPlayer: function () {
+      return this.$store.state.player
     }
   },
   watch: {
