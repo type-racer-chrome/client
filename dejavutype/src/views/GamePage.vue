@@ -66,13 +66,6 @@ export default {
       return this.$store.state.playerScore
     }
   },
-  watch: {
-    finished: function () {
-      if (!this.currentWord) {
-        this.$router.push({ path: 'finish' })
-      }
-    }
-  },
   created () {
     this.gameStart()
     this.timer()
