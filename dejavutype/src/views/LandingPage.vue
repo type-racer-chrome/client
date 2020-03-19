@@ -4,7 +4,7 @@
     <h2 class="title">dejavutype</h2>
     <p class="tag">please enter your name</p>
     <form @submit.prevent="redirToWaitingRoom">
-        <input class="input-form center-input name-form" type="text" placeholder="noob99">
+        <input class="input-form" v-model="name" type="text" placeholder="noob99">
         <button type="submit" class="my-btn-go">GO!</button>
     </form>
   </div>
@@ -13,8 +13,14 @@
 <script>
 export default {
   name: 'LandingPage',
+  data () {
+    return {
+      name: ''
+    }
+  },
   methods: {
     redirToWaitingRoom: function () {
+      this.$store.commit('insertPlayer', this.name)
       this.$router.push('/waitingroom')
     }
   }
