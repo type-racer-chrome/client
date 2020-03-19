@@ -56,7 +56,7 @@ export default {
   },
   watch: {
     finished: function () {
-      if (!this.currentWord) {
+      if (this.$store.state.finished) {
         this.$router.push({ path: 'finish' })
       }
     }

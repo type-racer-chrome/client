@@ -16,12 +16,17 @@ export default new Vuex.Store({
     ],
     wordIndex: 0,
     wordScore: 0,
-    playerScore: 0
+    playerScore: 0,
+    // currentWord: 0
+    finished: false
   },
   mutations: {
     next: function (state) {
       state.playerScore += state.wordScore
       state.wordIndex++
+      if (state.wordIndex >= state.arrayOfWords.length) {
+        state.finished = true
+      }
     }
   },
   actions: {
