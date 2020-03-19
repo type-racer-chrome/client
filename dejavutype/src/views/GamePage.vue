@@ -1,5 +1,6 @@
 <template>
   <div class="game-page">
+    {{time}}
     <div class="command">
       <p class="tag">type this word quickly!</p>
       <h1 class="word">{{ currentWord }}</h1>
@@ -32,7 +33,8 @@ export default {
   name: 'GamePage',
   data () {
     return {
-      playerinput: ''
+      playerinput: '',
+      time: '0'
     }
   },
   methods: {
@@ -44,6 +46,16 @@ export default {
         alert('Wrong!')
       }
       this.playerinput = ''
+    },
+    gameStart () {
+      setTimeout(() => {
+        this.$router.push('/finish')
+      }, 36000)
+    },
+    timer () {
+      setInterval(() => {
+        this.time++
+      }, 1000)
     }
   },
   computed: {
@@ -60,6 +72,10 @@ export default {
         this.$router.push({ path: 'finish' })
       }
     }
+  },
+  created () {
+    this.gameStart()
+    this.timer()
   }
 }
 </script>
