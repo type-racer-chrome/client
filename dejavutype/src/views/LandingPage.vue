@@ -11,18 +11,43 @@
 </template>
 
 <script>
+// import io from '../config/socket'
+
 export default {
   name: 'LandingPage',
   data () {
     return {
-      name: ''
+      username: ''
     }
   },
   methods: {
     redirToWaitingRoom: function () {
-      this.$store.commit('insertPlayer', this.name)
-      this.$router.push('/waitingroom')
+      if (this.username.length > 0) {
+        this.socket.emit('joinGame', this.username)
+        localStorage.setItem('username', this.username)
+        this.$vToastify.success({
+          title: `welcome ${this.username}`,
+          body: 'please waiting for another opponent'
+        })
+        this.$router.push('/waitingroom')
+      } else {
+        this.$vToastify.error({
+          title: 'Hey!',
+          body: 'You have tell your name :('
+        })
+      }
     }
+  },
+  computed: {
+    socket () {
+      return this.$store.state.socket
+    }
+  },
+  created () {
+    this.socket.on('joinGame', (name) => {
+      this.$store.commit('ADD_PLAYERS', name)
+      console.log(this.$store.state.players)
+    })
   }
 }
 </script>
@@ -35,7 +60,6 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 5rem;
-    min-height: 500px;
 }
 .title {
     font-size: 7rem;
@@ -47,7 +71,7 @@ export default {
 .tag {
     margin-top: 2rem;
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .input-form {
     border: none;
@@ -55,30 +79,5 @@ export default {
     border-radius: 2px;
     font-family: inherit;
     font-size: 1.15rem;
-    box-shadow: -5px 7px 26px -11px rgba(0,0,0,0.66);
-}
-.center-input {
-  text-align: center;
-}
-.name-form {
-  padding: .75rem 0;
-}
-.my-btn-go {
-  border: none;
-  height: 100%;
-  width: 4rem;
-  border-radius: 2px;
-  margin-left: 1rem;
-  background-color: #DCB142;
-  font-family: inherit;
-  font-size: 1.15rem;
-  box-shadow: -5px 7px 26px -11px rgba(0,0,0,0.66);
-  color: #234565;
-  transition: .3s;
-}
-.my-btn-go:hover {
-  transform: scale(1.1);
-  background-color: seagreen;
-  color: white;
 }
 </style>
