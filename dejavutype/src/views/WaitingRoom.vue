@@ -9,10 +9,13 @@
         <p>players joined:</p>
       </div>
       <div class="middle">
-        <Player/>
-        <Player/>
-        <Player/>
-        <Player/>
+        <div
+          v-for="player in players"
+          :key="player.id">
+          <div class="players">
+            <h5>{{player}}</h5>
+          </div>
+        </div>
       </div>
       <div class="bottom">
         <button @click="redirToGamePage" class="my-btn">start</button>
@@ -29,14 +32,25 @@ export default {
   name: 'WaitingRoom',
   methods: {
     redirToGamePage: function () {
-      this.$router.push('/game')
+      this.socket.emit('startGame', 'game mulaaaaii')
     },
     redirToLandingPage: function () {
       this.$router.push('/')
     }
   },
-  components: {
-    Player
+  computed: {
+    socket () {
+      return this.$store.state.socket
+    },
+    players () {
+      return this.$store.state.players
+    }
+  },
+  created () {
+    this.socket.on('gamePlay', (msg) => {
+      console.log(msg)
+      this.$router.push('/game')
+    })
   }
 }
 </script>
