@@ -2,13 +2,13 @@
   <div class="game-page">
     <div class="command">
       <p class="tag">type this word quickly!</p>
-      <h1 class="word">mempertanggungjawabkan</h1>
+      <h1 class="word">{{ currentWord }}</h1>
     </div>
     <div class="big-space">
       <div class="left">
-        <p class="tag">nama playernya</p>
+        <p class="tag">nama playernya Your score: {{ currentScore }}</p>
         <form v-on:submit.prevent="next">
-          <input class="input-form extended" type="text"  placeholder="player ngetik disini">
+          <input class="input-form extended" type="text" v-model="playerinput" placeholder="player ngetik disini">
         </form>
       </div>
       <div class="right">
@@ -32,20 +32,34 @@ export default {
   name: 'GamePage',
   data () {
     return {
-      playerinput: '',
-      words: [
-        'JavaScript',
-        'Machinist',
-        'Safety',
-        'Coronavirus',
-        'Wochkrautzenmach',
-        'Purgatoriumexcretum',
-        'Purwadhika'
-      ]
+      playerinput: ''
+    }
+  },
+  methods: {
+    next: function () {
+      if (this.playerinput === this.currentWord) {
+        this.$store.state.wordScore = this.currentWord.length
+        this.$store.commit('next')
+      } else {
+        alert('Wrong!')
+      }
+      this.playerinput = ''
     }
   },
   computed: {
-    currentWord () {}
+    currentWord: function () {
+      return this.$store.state.arrayOfWords[this.$store.state.wordIndex]
+    },
+    currentScore: function () {
+      return this.$store.state.playerScore
+    }
+  },
+  watch: {
+    finished: function () {
+      if (!this.currentWord) {
+        this.$router.push({ path: 'finish' })
+      }
+    }
   }
 }
 </script>

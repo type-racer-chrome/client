@@ -13,9 +13,16 @@ export default new Vuex.Store({
       'Wochkrautzenmach',
       'Purgatoriumexcretum',
       'Purwadhika'
-    ]
+    ],
+    wordIndex: 0,
+    wordScore: 0,
+    playerScore: 0
   },
   mutations: {
+    next: function (state) {
+      state.playerScore += state.wordScore
+      state.wordIndex++
+    }
   },
   actions: {
   },
