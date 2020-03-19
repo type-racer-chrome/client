@@ -10,7 +10,7 @@
       </div>
       <div class="middle">
         <div
-          v-for="player in players"
+          v-for="player in playersReady"
           :key="player.id">
           <div class="players">
             <h5>{{player}}</h5>
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import Player from '../components/Player.vue'
 export default {
   name: 'WaitingRoom',
   methods: {
@@ -35,18 +34,26 @@ export default {
       this.socket.emit('startGame', 'game mulaaaaii')
     },
     redirToLandingPage: function () {
+      this.socket.emit('backToLandingPage', localStorage.username)
       this.$router.push('/')
+      localStorage.clear()
     }
   },
   computed: {
     socket () {
       return this.$store.state.socket
     },
-    players () {
+    playersReady () {
       return this.$store.state.players
     }
   },
-  created () {
+  mounted () {
+    this.socket.on('joinGame', (name) => {
+      this.$store.commit('ADD_PLAYERS', name)
+      // console.log(this.$store.state.players)
+      console.log('berapa kali')
+    })
+
     this.socket.on('gamePlay', (msg) => {
       console.log(msg)
       this.$router.push('/game')
