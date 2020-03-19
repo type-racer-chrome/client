@@ -1,31 +1,30 @@
 <template>
-  <div class="page">
-    <div class="header">
-      Please wait for another player to join
+  <div class="page-row">
+    <div class="left">
+      <i @click="redirToLandingPage" class="fas fa-angle-left fa-8x"></i>
     </div>
-    <p class="tag extra-mt">players joined:</p>
     <div class="main">
-      <div class="players">
-        <h5>Iam</h5>
+      <div class="upper">
+        <p class="blinking">...waiting for another player to join...</p>
+        <p>players joined:</p>
       </div>
-      <div class="players">
-        <h5>Zaen</h5>
+      <div class="middle">
+        <Player/>
+        <Player/>
+        <Player/>
+        <Player/>
       </div>
-      <div class="players">
-        <h5>Isro</h5>
-      </div>
-      <div class="players">
-        <h5>Ziady</h5>
+      <div class="bottom">
+        <button @click="redirToGamePage" class="my-btn">start</button>
       </div>
     </div>
-    <div class="footer">
-      <button @click="redirToGamePage" class="my-btn">Start</button>
-      <button @click="redirToLandingPage" class="my-btn">Quit</button>
+    <div class="right">
     </div>
   </div>
 </template>
 
 <script>
+import Player from '../components/Player.vue'
 export default {
   name: 'WaitingRoom',
   methods: {
@@ -35,56 +34,100 @@ export default {
     redirToLandingPage: function () {
       this.$router.push('/')
     }
+  },
+  components: {
+    Player
   }
 }
 </script>
 
 <style>
-.header {
-  height: 15%;
-  width: 100%;
-  font-size: 1.25rem;
+.page-row {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
 }
-.main {
-  width: 30%;
-  height: 70%;
-  flex-direction: column;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.footer {
-  width: 100%;
-  height: 15%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.my-btn {
-  border: none;
-  padding: .75rem 3rem;
-  border-radius: 2px;
-  background-color: #DCB142;
-  cursor: pointer;
-  transition: .3s;
-  font-family: inherit;
-  font-size: 1.1rem;
-}
-.my-btn:hover {
-  transform: scale(1.1);
-}
-.players {
-  height: 3rem;
-  width: 6rem;
-  border: 1px solid #DCB142;
-  border-radius: 2px;
-  font-size: 1.25rem;
+.left, .right {
+  width: 15%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: .5rem;
+}
+.main {
+  width: 70%;
+  min-width: 500px;
+  height: 100%;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+.upper, .bottom {
+  height: 15%;
+  min-height: 50px;
+}
+.upper p {
+  font-size: 1.5rem;
+}
+.middle {
+  margin-top: 1rem;
+  height: 60%;
+  overflow-y: scroll;
+  margin-bottom: 2rem;
+  min-height: 150px;
+}
+.my-btn {
+  border: none;
+  /* padding: .75rem 3rem; */
+  height: 3.25rem;
+  width: 10rem;
+  border-radius: 2px;
+  background-color: #C6C5B9;
+  color: #234565;
+  cursor: pointer;
+  transition: .3s;
+  font-family: inherit;
+  font-size: 1.5rem;
+}
+.my-btn:hover {
+  transform: scale(1.1);
+  background-color: #DCB142;
+}
+.players {
+  height: 3.25rem;
+  width: 17.5rem;
+  background-color: #DCB142;
+  color: #234565;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  font-weight: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
 }
 .extra-mt {
   margin-bottom: 1rem;
+}
+.fa-angle-left {
+  transition: .3s;
+  cursor: pointer;
+  color: #C6C5B9;
+}
+.fa-angle-left:hover {
+  color: #DCB142;
+  transform: scale(1.1);
+}
+.blinking{
+  animation: blinking-text 1.2s infinite;
+}
+@keyframes blinking-text{
+  0%{ color: #DCB142; }
+  49%{ color: #DCB142; }
+  60%{ color: transparent; }
+  99%{ color:transparent; }
+  100%{ color: #DCB142; }
 }
 </style>

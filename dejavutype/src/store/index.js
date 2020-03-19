@@ -12,7 +12,8 @@ export default new Vuex.Store({
       'Coronavirus',
       'Wochkrautzenmach',
       'Purgatoriumexcretum',
-      'Purwadhika'
+      'Purwadhika',
+      'Hacktiv8'
     ],
     wordIndex: 0,
     wordScore: 0,
