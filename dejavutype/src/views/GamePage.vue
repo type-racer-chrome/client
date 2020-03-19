@@ -1,28 +1,31 @@
 <template>
   <div class="game-page">
     <div class="command">
-      <p class="tag">type this word quickly!</p>
-      <h1 class="word">mempertanggungjawabkan</h1>
+      <p class="p-lead">type this word quickly, [playername]!</p>
+      <h1 class="word">sectumsempra</h1>
+      <form class="full-form">
+        <input class="input-form extended" type="text" placeholder="go type as fast as possible!">
+      </form>
     </div>
-    <div class="big-space">
-      <div class="left">
-        <p class="tag">nama playernya</p>
-        <form>
-          <input class="input-form extended" type="text" placeholder="player ngetik disini">
-        </form>
-      </div>
-      <div class="right">
-        <div class="tag">score</div>
-        <div class="scores">
-          <p>arnold: 37</p>
-          <p>isro: 11</p>
-          <p>arnold 43</p>
-          <p>arnold 49</p>
-          <p>isro: 18</p>
-          <p>iam: 7</p>
-          <p>isro: 26</p>
-        </div>
-      </div>
+    <div class="players-stats">
+      <p>adam: 9</p>
+      <p>adam: 15</p>
+      <p>thomas: 9</p>
+      <p>tamara: 9</p>
+      <p>adam: 21</p>
+      <p>thomas: 15</p>
+      <p>adam: 9</p>
+      <p>adam: 15</p>
+      <p>thomas: 9</p>
+      <p>tamara: 9</p>
+      <p>adam: 21</p>
+      <p>thomas: 15</p>
+      <p>adam: 9</p>
+      <p>adam: 15</p>
+      <p>thomas: 9</p>
+      <p>tamara: 9</p>
+      <p>adam: 21</p>
+      <p>thomas: 15</p>
     </div>
   </div>
 </template>
@@ -37,54 +40,59 @@ export default {
 .game-page {
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
 }
 .command {
-  height: 30%;
-  width: 100%;
-}
-.command h1 {
-  border-bottom: 1px solid white;
-  border-radius: 2px;
-}
-.big-space {
-  height: 70%;
-  width: 100%;
-  display: flex;
-}
-.left {
-  height: 100%;
-  width: 60%;
+  width: 65%;
+  height: 50%;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: flex-start;
-  padding-left: 4rem;
-  justify-content: flex-start;
 }
-.right {
-  height: 100%;
-  width: 40%;
-  display: flex;
-  flex-direction: column;
+.p-lead {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
 }
 .word {
   font-size: 4rem;
-  letter-spacing: 10px;
+  letter-spacing: 2.5px;
+  margin-bottom: .25rem;
+  font-weight: 500;
 }
-.scores {
+.players-stats {
+  width: 35%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1rem 1.25rem;
-  border: 1px solid #DCB142;
-  border-radius: 2px;
-  height: 100%;
-  font-size: 1.25rem;
+  background-color: #DCB142;
+  color: #234565;
+  font-size: 2rem;
+  padding: 1.5rem;
+  box-shadow: inset -5px 7px 26px -11px rgba(0,0,0,0.75);
+  border-radius: 4px;
+  overflow-y: scroll;
+}
+.full-form {
+  width: 100%;
+  padding-right: 2.5rem;
 }
 .extended{
-  padding: .75rem 6rem .75rem 1rem;
+  width: 100%;
+  /* padding: .75rem 6rem .75rem 1rem; */
+}
+::-webkit-scrollbar {
+  width: .75rem;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(35, 69, 101, .75);
+  border-radius: 4px;
 }
 </style>
