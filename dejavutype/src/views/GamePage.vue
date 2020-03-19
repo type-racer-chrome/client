@@ -20,12 +20,6 @@
       <p>tamara: 9</p>
       <p>adam: 21</p>
       <p>thomas: 15</p>
-      <p>adam: 9</p>
-      <p>adam: 15</p>
-      <p>thomas: 9</p>
-      <p>tamara: 9</p>
-      <p>adam: 21</p>
-      <p>thomas: 15</p>
     </div>
   </div>
 </template>
