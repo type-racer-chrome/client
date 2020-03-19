@@ -8,25 +8,25 @@
         <input v-model="playerinput" class="input-form extended" type="text" placeholder="go type as fast as possible!">
       </form>
     </div>
-    <div class="players-stats">
-      <p>adam: 9</p>
-      <p>adam: 15</p>
-      <p>thomas: 9</p>
-      <p>tamara: 9</p>
-      <p>adam: 21</p>
-      <p>thomas: 15</p>
-      <p>adam: 9</p>
-      <p>adam: 15</p>
-      <p>thomas: 9</p>
-      <p>tamara: 9</p>
-      <p>adam: 21</p>
-      <p>thomas: 15</p>
-      <p>adam: 9</p>
-      <p>adam: 15</p>
-      <p>thomas: 9</p>
-      <p>tamara: 9</p>
-      <p>adam: 21</p>
-      <p>thomas: 15</p>
+    <div class="big-space">
+      <div class="left">
+        <p class="tag">{{ getPlayer }} Your score: {{ currentScore }}</p>
+        <form v-on:submit.prevent="next">
+          <input class="input-form extended" type="text" v-model="playerinput" placeholder="player ngetik disini">
+        </form>
+      </div>
+      <div class="right">
+        <div class="tag">score</div>
+        <div class="scores">
+          <p>arnold: 37</p>
+          <p>isro: 11</p>
+          <p>arnold 43</p>
+          <p>arnold 49</p>
+          <p>isro: 18</p>
+          <p>iam: 7</p>
+          <p>isro: 26</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -67,11 +67,14 @@ export default {
     },
     currentScore: function () {
       return this.$store.state.playerScore
+    },
+    getPlayer: function () {
+      return this.$store.state.player
     }
   },
   watch: {
     finished: function () {
-      if (!this.currentWord) {
+      if (this.$store.state.finished) {
         this.$router.push({ path: 'finish' })
       }
     }
