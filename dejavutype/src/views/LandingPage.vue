@@ -22,7 +22,7 @@ export default {
   methods: {
     redirToWaitingRoom: function () {
       if (this.username.length > 0) {
-        // this.socket.emit('joinRoom')
+        this.socket.emit('joinGame', this.username)
         localStorage.setItem('username', this.username)
         this.$vToastify.success({
           title: `welcome ${this.username}`,
@@ -43,8 +43,9 @@ export default {
     }
   },
   created () {
-    this.socket.on('hi', (msg) => {
-      console.log(msg)
+    this.socket.on('joinGame', (name) => {
+      this.$store.commit('ADD_PLAYERS', name)
+      console.log(this.$store.state.players)
     })
   }
 }

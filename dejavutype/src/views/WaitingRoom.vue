@@ -4,20 +4,15 @@
       Please wait for another player to join
     </div>
     <p class="tag extra-mt">players joined:</p>
-    <div class="main">
-      <div class="players">
-        <h5>Iam</h5>
+      <div class="main">
+        <div
+          v-for="player in players"
+          :key="player.id">
+          <div class="players">
+            <h5>{{player}}</h5>
+          </div>
+        </div>
       </div>
-      <div class="players">
-        <h5>Zaen</h5>
-      </div>
-      <div class="players">
-        <h5>Isro</h5>
-      </div>
-      <div class="players">
-        <h5>Ziady</h5>
-      </div>
-    </div>
     <div class="footer">
       <button @click="redirToGamePage" class="my-btn">Start</button>
       <button @click="redirToLandingPage" class="my-btn">Quit</button>
@@ -30,11 +25,7 @@ export default {
   name: 'WaitingRoom',
   methods: {
     redirToGamePage: function () {
-      this.socket.emit('chat', 'ini message')
-
-      // this.socket.on('message', (msg) => {
-      //   console.log(msg)
-      // })
+      this.socket.emit('startGame', 'game mulaaaaii')
     },
     redirToLandingPage: function () {
       this.$router.push('/')
@@ -44,10 +35,13 @@ export default {
   computed: {
     socket () {
       return this.$store.state.socket
+    },
+    players () {
+      return this.$store.state.players
     }
   },
   created () {
-    this.socket.on('message', (msg) => {
+    this.socket.on('gamePlay', (msg) => {
       console.log(msg)
       this.$router.push('/game')
     })
