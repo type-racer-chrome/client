@@ -31,6 +31,7 @@ export default {
 }
 .title {
     font-size: 7rem;
+    letter-spacing: 2px;
 }
 .welcome-tag {
     font-size: 2rem;

@@ -3,13 +3,13 @@
     <div class="header">
       Please wait for another player to join
     </div>
+    <p class="tag extra-mt">players joined:</p>
     <div class="main">
-      <p class="tag">Players Joined:</p>
       <div class="players">
         <h5>Iam</h5>
       </div>
       <div class="players">
-        <h5>Arnold</h5>
+        <h5>Zaen</h5>
       </div>
       <div class="players">
         <h5>Isro</h5>
@@ -46,10 +46,11 @@ export default {
   font-size: 1.25rem;
 }
 .main {
-  width: 100%;
+  width: 30%;
   height: 70%;
   flex-direction: column;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 .footer {
@@ -81,6 +82,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2px;
+  margin-bottom: .5rem;
+}
+.extra-mt {
+  margin-bottom: 1rem;
 }
 </style>

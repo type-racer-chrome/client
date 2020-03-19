@@ -2,7 +2,7 @@
   <div class="game-page">
     <div class="command">
       <p class="tag">type this word quickly!</p>
-      <h1 class="word">hacktiv8</h1>
+      <h1 class="word">mempertanggungjawabkan</h1>
     </div>
     <div class="big-space">
       <div class="left">
