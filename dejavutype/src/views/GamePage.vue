@@ -1,10 +1,11 @@
 <template>
   <div class="game-page">
+    {{time}}
     <div class="command">
-      <p class="p-lead p-lead-special">type this word quickly, [playername]!</p>
-      <p class="word">sectumsempra</p>
-      <form class="full-form">
-        <input class="input-form extended" type="text" placeholder="go type as fast as possible!">
+      <p class="p-lead p-lead-special">type this word quickly, [playername]! Your score: {{ currentScore }}</p>
+      <p class="word">{{ currentWord }}</p>
+      <form v-on:submit.prevent="next" class="full-form">
+        <input v-model="playerinput" class="input-form extended" type="text" placeholder="go type as fast as possible!">
       </form>
     </div>
     <div class="players-stats">
@@ -32,7 +33,53 @@
 
 <script>
 export default {
-  name: 'GamePage'
+  name: 'GamePage',
+  data () {
+    return {
+      playerinput: '',
+      time: '0'
+    }
+  },
+  methods: {
+    next: function () {
+      if (this.playerinput === this.currentWord) {
+        this.$store.state.wordScore = this.currentWord.length
+        this.$store.commit('next')
+      } else {
+        alert('Wrong!')
+      }
+      this.playerinput = ''
+    },
+    gameStart () {
+      setTimeout(() => {
+        this.$router.push('/finish')
+      }, 36000)
+    },
+    timer () {
+      setInterval(() => {
+        this.time++
+      }, 1000)
+    }
+  },
+  computed: {
+    currentWord: function () {
+      return this.$store.state.arrayOfWords[this.$store.state.wordIndex]
+    },
+    currentScore: function () {
+      return this.$store.state.playerScore
+    }
+  },
+  watch: {
+    finished: function () {
+      if (!this.currentWord) {
+        this.$router.push({ path: 'finish' })
+      }
+    }
+  },
+  created () {
+    this.gameStart()
+    this.timer()
+  }
 }
 </script>
 
