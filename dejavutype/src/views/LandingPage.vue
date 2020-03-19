@@ -29,6 +29,7 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 5rem;
+    min-height: 500px;
 }
 .title {
     font-size: 7rem;

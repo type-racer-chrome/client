@@ -4,44 +4,10 @@
       <p class="p-lead">final score</p>
     </div>
     <div class="final-mid">
-      <!-- Satu set player & scorenya -->
-      <div class="final-score-card">
-        <p>thomas</p>
-        <p>65</p>
-      </div>
-      <!-- -------------------------- -->
-      <div class="final-score-card">
-        <p>tamara</p>
-        <p>72</p>
-      </div>
-      <div class="final-score-card">
-        <p>adam</p>
-        <p>59</p>
-      </div>
-      <div class="final-score-card">
-        <p>tamara</p>
-        <p>72</p>
-      </div>
-      <div class="final-score-card">
-        <p>adam</p>
-        <p>59</p>
-      </div>
-      <div class="final-score-card">
-        <p>tamara</p>
-        <p>72</p>
-      </div>
-      <div class="final-score-card">
-        <p>adam</p>
-        <p>59</p>
-      </div>
-      <div class="final-score-card">
-        <p>tamara</p>
-        <p>72</p>
-      </div>
-      <div class="final-score-card">
-        <p>adam</p>
-        <p>59</p>
-      </div>
+      <FinalScoreCard/>
+      <FinalScoreCard/>
+      <FinalScoreCard/>
+      <FinalScoreCard/>
     </div>
     <div class="footer quit-only">
       <button @click="redirToLandingPage" class="my-btn">quit</button>
@@ -50,12 +16,16 @@
 </template>
 
 <script>
+import FinalScoreCard from '../components/FinalScoreCard.vue'
 export default {
   name: 'FinishPage',
   methods: {
     redirToLandingPage: function () {
       this.$router.push('/')
     }
+  },
+  components: {
+    FinalScoreCard
   }
 }
 </script>

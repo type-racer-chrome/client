@@ -9,32 +9,10 @@
         <p>players joined:</p>
       </div>
       <div class="middle">
-        <!-- each player card will have these elements -->
-        <div class="players">
-          <p>iam</p>
-        </div>
-        <!-- ----------------------------------------- -->
-        <div class="players">
-          <p>zaenaldieuuygeqoid999</p>
-        </div>
-        <div class="players">
-          <p>isro</p>
-        </div>
-        <div class="players">
-          <p>ziady</p>
-        </div>
-        <div class="players">
-          <p>ziady</p>
-        </div>
-        <div class="players">
-          <p>ziady</p>
-        </div>
-        <div class="players">
-          <p>ziady</p>
-        </div>
-        <div class="players">
-          <p>ziady</p>
-        </div>
+        <Player/>
+        <Player/>
+        <Player/>
+        <Player/>
       </div>
       <div class="bottom">
         <button @click="redirToGamePage" class="my-btn">start</button>
@@ -46,6 +24,7 @@
 </template>
 
 <script>
+import Player from '../components/Player.vue'
 export default {
   name: 'WaitingRoom',
   methods: {
@@ -55,6 +34,9 @@ export default {
     redirToLandingPage: function () {
       this.$router.push('/')
     }
+  },
+  components: {
+    Player
   }
 }
 </script>
@@ -76,22 +58,25 @@ export default {
 }
 .main {
   width: 70%;
+  min-width: 500px;
   height: 100%;
   flex-direction: column;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
 }
 .upper, .bottom {
   height: 15%;
+  min-height: 50px;
 }
 .upper p {
   font-size: 1.5rem;
 }
 .middle {
+  margin-top: 1rem;
   height: 60%;
   overflow-y: scroll;
   margin-bottom: 2rem;
+  min-height: 150px;
 }
 .my-btn {
   border: none;

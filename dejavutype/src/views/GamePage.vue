@@ -1,8 +1,8 @@
 <template>
   <div class="game-page">
     <div class="command">
-      <p class="p-lead">type this word quickly, [playername]!</p>
-      <h1 class="word">sectumsempra</h1>
+      <p class="p-lead p-lead-special">type this word quickly, [playername]!</p>
+      <p class="word">sectumsempra</p>
       <form class="full-form">
         <input class="input-form extended" type="text" placeholder="go type as fast as possible!">
       </form>
@@ -51,16 +51,23 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+  word-break: break-all;
 }
 .p-lead {
   font-size: 1.5rem;
   letter-spacing: 1px;
+}
+.p-lead-special {
+  padding-right: 2.5rem;
+  text-align: left;
 }
 .word {
   font-size: 4rem;
   letter-spacing: 2.5px;
   margin-bottom: .25rem;
   font-weight: 500;
+  padding-right: 2.5rem;
+  text-align: left;
 }
 .players-stats {
   width: 35%;
