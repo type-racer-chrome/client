@@ -23,11 +23,12 @@ export default new Vuex.Store({
     playerScore: 0,
     player: '',
     // currentWord: 0
-    finished: false
+    finished: false,
+    highScore: []
   },
   mutations: {
     next: function (state) {
-      state.playerScore += state.wordScore
+      state.playerScore += state.arrayOfWords[state.wordIndex].length
       state.wordIndex++
       if (state.wordIndex >= state.arrayOfWords.length) {
         state.finished = true
@@ -38,10 +39,24 @@ export default new Vuex.Store({
     },
     ADD_PLAYERS (state, player) {
       state.players.push(player)
+    },
+    LOGOUT (state, payload) {
+      state.players.filter((el, index) => {
+        if (el === payload) {
+          const test = state.players.slice(0, index)
+          state.players = test
+        }
+      })
+    },
+    SET_HIGHSCORE (state, payload) {
+      console.log('AKU MASUK YEEY')
+      state.highScore.push({
+        name: payload.name,
+        highScore: payload.score
+      })
     }
   },
   actions: {
-
   },
   modules: {
   }

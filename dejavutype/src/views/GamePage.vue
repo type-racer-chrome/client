@@ -2,8 +2,8 @@
   <div class="game-page">
     {{time}}
     <div class="command">
-      <p class="p-lead p-lead-special">type this word quickly, [playername]! Your score: {{ currentScore }}</p>
-      <p class="word">{{ currentWord }}</p>
+      <p class="p-lead p-lead-special">type this word quickly, {{getPlayer}} ! Your score: {{ currentScore }}</p>
+      <p class="word">{{ currentWord }}</p>``
       <form v-on:submit.prevent="next" class="full-form">
         <input v-model="playerinput" class="input-form extended" type="text" placeholder="go type as fast as possible!">
       </form>
@@ -18,13 +18,7 @@
       <div class="right">
         <div class="tag">score</div>
         <div class="scores">
-          <p>arnold: 37</p>
-          <p>isro: 11</p>
-          <p>arnold 43</p>
-          <p>arnold 49</p>
-          <p>isro: 18</p>
-          <p>iam: 7</p>
-          <p>isro: 26</p>
+          <p v-for="user in allPlayer" :key="user">{{user}}</p>
         </div>
       </div>
     </div>
@@ -42,18 +36,13 @@ export default {
   },
   methods: {
     next: function () {
-      if (this.playerinput === this.currentWord) {
-        this.$store.state.wordScore = this.currentWord.length
-        this.$store.commit('next')
-      } else {
-        alert('Wrong!')
-      }
-      this.playerinput = ''
+      this.socket.emit('race', this.playerinput)
     },
     gameStart () {
       setTimeout(() => {
+        this.socket.emit('highscore', { score: this.currentScore, name: this.getPlayer })
         this.$router.push('/finish')
-      }, 36000)
+      }, 10000)
     },
     timer () {
       setInterval(() => {
@@ -70,6 +59,12 @@ export default {
     },
     getPlayer: function () {
       return this.$store.state.player
+    },
+    socket () {
+      return this.$store.state.socket
+    },
+    allPlayer () {
+      return this.$store.state.players
     }
   },
   watch: {
@@ -82,7 +77,22 @@ export default {
   created () {
     this.gameStart()
     this.timer()
+  },
+  mounted () {
+    this.socket.on('race', (payload) => {
+      if (payload === this.currentWord) {
+        this.$store.state.wordScore = payload
+        this.$store.commit('next')
+      } else {
+        alert('Wrong!')
+      }
+      this.playerinput = ''
+    })
+    this.socket.on('highscore', (payload) => {
+      this.$store.commit('SET_HIGHSCORE', payload)
+    })
   }
+
 }
 </script>
 

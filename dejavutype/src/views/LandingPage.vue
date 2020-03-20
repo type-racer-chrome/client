@@ -21,20 +21,20 @@ export default {
   },
   methods: {
     redirToWaitingRoom: function () {
-      if (this.username.length > 0) {
-        this.socket.emit('joinGame', this.username)
-        localStorage.setItem('username', this.username)
-        this.$vToastify.success({
-          title: `welcome ${this.username}`,
-          body: 'please waiting for another opponent'
-        })
-        this.$router.push('/waitingroom')
-      } else {
-        this.$vToastify.error({
-          title: 'Hey!',
-          body: 'You have tell your name :('
-        })
-      }
+      // if (this.username.length > 0) {
+      this.socket.emit('joinGame', this.username)
+      localStorage.setItem('username', this.username)
+      //   this.$vToastify.success({
+      //     title: `welcome ${this.username}`,
+      //     body: 'please waiting for another opponent'
+      //   })
+      this.$router.push('/waitingroom')
+      // } else {
+      //   this.$vToastify.error({
+      //     title: 'Hey!',
+      //     body: 'You have tell your name :('
+      //   })
+      // }
     }
   },
   computed: {
@@ -45,7 +45,9 @@ export default {
   created () {
     this.socket.on('joinGame', (name) => {
       this.$store.commit('ADD_PLAYERS', name)
-      console.log(this.$store.state.players)
+    })
+    this.socket.on('disconnect', (payload) => {
+      this.$store.commit('LOGOUT', payload)
     })
   }
 }

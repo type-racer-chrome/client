@@ -8,6 +8,7 @@
         <p class="blinking">...waiting for another player to join...</p>
         <p>players joined:</p>
       </div>
+      {{players}}
       <div class="middle">
         <div
           v-for="player in players"
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import Player from '../components/Player.vue'
+// import Player from '../components/Player.vue'
 export default {
   name: 'WaitingRoom',
   methods: {
@@ -35,6 +36,7 @@ export default {
       this.socket.emit('startGame', 'game mulaaaaii')
     },
     redirToLandingPage: function () {
+      this.socket.emit('logout', localStorage.getItem('username'))
       this.$router.push('/')
     }
   },
@@ -47,8 +49,8 @@ export default {
     }
   },
   created () {
-    this.socket.on('gamePlay', (msg) => {
-      console.log(msg)
+    this.socket.on('gamePlay', () => {
+      this.$store.commit('insertPlayer', localStorage.getItem('username'))
       this.$router.push('/game')
     })
   }
