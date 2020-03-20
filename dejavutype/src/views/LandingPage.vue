@@ -11,7 +11,7 @@
 </template>
 
 <script>
-// import io from '../config/socket'
+import socket from '../config/socket'
 
 export default {
   name: 'LandingPage',
@@ -23,7 +23,8 @@ export default {
   methods: {
     redirToWaitingRoom: function () {
       if (this.username.length > 0) {
-        this.socket.emit('joinGame', this.username)
+        // socket.open()
+        socket.emit('joinGame', this.username)
 
         localStorage.setItem('username', this.username)
         this.$vToastify.success({
@@ -40,21 +41,28 @@ export default {
     }
   },
   computed: {
-    socket () {
-      return this.$store.state.socket
-    }
   },
   created () {
-    this.socket.on('joinGame', (name) => {
+    socket.open()
+    socket.on('joinGame', (name) => {
       this.$store.commit('ADD_PLAYERS', name)
       console.log(this.$store.state.players)
       console.log('berapa kali')
     })
 
-    this.socket.on('deleteUser', (username) => {
+    socket.on('deleteUser', (username) => {
       const index = this.$store.state.players.indexOf(username)
+      console.log(username, 'INIIIIIIIIIIIII USERNAMEEEE')
       // console.log(index, 'INI INDEXXXXX')
+      socket.close()
+      setTimeout(() => {
+        socket.open()
+      }, 3000)
+      // socket.open()
       this.$store.commit('DELETE_USER', index)
+    })
+    socket.on('resetPlayer', () => {
+      this.$store.commit('RESET_PLAYER')
     })
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div>
-      <p class="p-lead">final score</p>
+      <h3 class="p-lead">final score</h3>
     </div>
     <div class="final-mid">
       <div v-for="score in tableScore" :key="score.id">
@@ -15,12 +15,16 @@
 </template>
 
 <script>
+import socket from '../config/socket'
 import FinalScoreCard from '../components/FinalScoreCard.vue'
+
 export default {
   name: 'FinishPage',
   methods: {
     redirToLandingPage: function () {
       this.$router.push('/')
+      socket.emit('resetPlayer')
+      // this.socket.emit('disconnect')
     }
   },
   components: {
@@ -28,8 +32,11 @@ export default {
   },
   computed: {
     tableScore () {
-      return this.$store.state.highScore
+      return this.$store.getters.sortScore
     }
+    // socket () {
+    //   return this.$store.state.socket
+    // }
   }
 }
 </script>

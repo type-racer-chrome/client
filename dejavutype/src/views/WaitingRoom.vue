@@ -27,34 +27,42 @@
 </template>
 
 <script>
+import socket from '../config/socket'
+
 export default {
   name: 'WaitingRoom',
   methods: {
     redirToGamePage: function () {
-      this.socket.emit('startGame', 'game mulaaaaii')
+      socket.emit('startGame', 'game mulaaaaii')
     },
     redirToLandingPage: function () {
-      this.socket.emit('backToLandingPage', localStorage.username)
+      socket.emit('backToLandingPage', localStorage.username)
       this.$router.push('/')
       localStorage.clear()
     }
   },
   computed: {
-    socket () {
-      return this.$store.state.socket
-    },
+    // socket () {
+    //   return this.$store.state.socket
+    // },
     playersReady () {
       return this.$store.state.players
     }
   },
   created () {
-    // this.socket.on('joinGame', (name) => {
+    // socket.on('joinGame', (name) => {
     //   this.$store.commit('ADD_PLAYERS', name)
     //   console.log(this.$store.state.players)
     //   console.log('berapa kali')
     // })
 
-    this.socket.on('gamePlay', (msg) => {
+    // socket.on('deleteUser', (username) => {
+    //   const index = this.$store.state.players.indexOf(username)
+    //   // console.log(index, 'INI INDEXXXXX')
+    //   this.$store.commit('DELETE_USER', index)
+    // })
+
+    socket.on('gamePlay', (msg) => {
       this.$store.commit('insertPlayer', localStorage.getItem('username'))
       console.log(msg)
       this.$router.push('/game')
@@ -63,6 +71,9 @@ export default {
   beforeDestroy () {
     this.socket.off('joinGame')
   }
+  // beforeDestroy () {
+  //   socket.close()
+  // }
 }
 </script>
 
