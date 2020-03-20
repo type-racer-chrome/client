@@ -15,12 +15,16 @@
 </template>
 
 <script>
+import socket from '../config/socket'
 import FinalScoreCard from '../components/FinalScoreCard.vue'
+
 export default {
   name: 'FinishPage',
   methods: {
     redirToLandingPage: function () {
       this.$router.push('/')
+      this.socket.emit('resetPlayer')
+      // this.socket.emit('disconnect')
     }
   },
   components: {
@@ -29,6 +33,9 @@ export default {
   computed: {
     tableScore () {
       return this.$store.state.highScore
+    },
+    socket () {
+      return this.$store.state.socket
     }
   }
 }
