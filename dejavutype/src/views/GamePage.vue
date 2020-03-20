@@ -8,7 +8,7 @@
       </form>
     </div>
     <div class="players-stats">
-      <p v-for="(user, index) in tableScore" :key="index" >{{user.name}}: {{currentScore}}</p>
+      <p v-for="(user, index) in tableScore" :key="index" >{{user.name}}: {{user.highscore}}</p>
     </div>
   </div>
 </template>
@@ -87,7 +87,7 @@ export default {
       this.$store.commit('SET_HIGHSCORE', payload)
     })
     this.socket.on('score', (payload) => {
-      console.log(payload, 'OAWJDOANDONASOIN')
+      localStorage.setItem('score', payload.score)
       this.$store.commit('LIVE_SCORE', payload)
     })
   }
