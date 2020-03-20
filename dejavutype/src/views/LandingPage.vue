@@ -12,6 +12,7 @@
 
 <script>
 import socket from '../config/socket'
+// import { Howl, Howler } from 'howler'
 
 export default {
   name: 'LandingPage',

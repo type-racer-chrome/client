@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       playerinput: '',
-      time: '0'
+      time: '10'
     }
   },
   methods: {
