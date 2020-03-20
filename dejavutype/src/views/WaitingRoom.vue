@@ -1,7 +1,7 @@
 <template>
   <div class="page-row">
     <div class="left">
-      <i @click="redirToLandingPage" class="fas fa-angle-left fa-8x"></i>
+      <!-- <i @click="redirToLandingPage" class="fas fa-angle-left fa-8x"></i> -->
     </div>
     <div class="main">
       <div class="upper">
@@ -47,12 +47,12 @@ export default {
       return this.$store.state.players
     }
   },
-  mounted () {
-    this.socket.on('joinGame', (name) => {
-      this.$store.commit('ADD_PLAYERS', name)
-      // console.log(this.$store.state.players)
-      console.log('berapa kali')
-    })
+  created () {
+    // this.socket.on('joinGame', (name) => {
+    //   this.$store.commit('ADD_PLAYERS', name)
+    //   console.log(this.$store.state.players)
+    //   console.log('berapa kali')
+    // })
 
     this.socket.on('gamePlay', (msg) => {
       console.log(msg)
