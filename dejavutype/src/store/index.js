@@ -29,10 +29,13 @@ export default new Vuex.Store({
     player: '',
     round: 1,
     finished: false,
-    highScore: []
+    highScore: [],
+    tableScore: [],
+    liveScore: []
   },
   mutations: {
-    next: function (state) {
+    next: function (state, payload) {
+      state.tableScore.push(payload)
       state.playerScore += state.arrayOfWords[state.wordIndex].length
       state.wordIndex = Math.floor(Math.random() * state.arrayOfWords.length)
       state.round++
@@ -44,10 +47,15 @@ export default new Vuex.Store({
       state.player = name
     },
     ADD_PLAYERS (state, player) {
-      console.log(player)
-      // console.log('Kehit satu-satu')
-      // console.log(state.players)
       state.players.push(player)
+    },
+    LOGOUT (state, payload) {
+      state.players.filter((el, index) => {
+        if (el === payload) {
+          const test = state.players.slice(0, index)
+          state.players = test
+        }
+      })
     },
     SET_HIGHSCORE (state, payload) {
       console.log('AKU MASUK YEEY')
@@ -56,6 +64,12 @@ export default new Vuex.Store({
         highScore: payload.score
       })
     },
+    LIVE_SCORE (state, payload) {
+      console.log(payload)
+      state.liveScore.push({
+        name: payload.name,
+        highScore: payload.score
+      })
     DELETE_USER (state, index) {
       state.players.splice(index, 1)
       console.log(state.players)

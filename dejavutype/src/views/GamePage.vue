@@ -9,7 +9,7 @@
     </div>
     <div class="big-space">
       <div class="left">
-        <p class="tag">{{ getPlayer }} Your score: {{ currentScore }}</p>
+        <p class="tag">{{ getPlayer }} All score: {{ currentScore }}</p>
         <form v-on:submit.prevent="next">
           <input class="input-form extended" type="text" v-model="playerinput" placeholder="player ngetik disini">
         </form>
@@ -17,7 +17,7 @@
       <div class="right">
         <div class="tag">score</div>
         <div class="scores">
-          <p v-for="user in allPlayer" :key="user">{{user}}</p>
+          <p v-for="(user, index) in tableScore" :key="index" >{{user.name}}: {{currentScore}}</p>
         </div>
       </div>
     </div>
@@ -35,13 +35,14 @@ export default {
   },
   methods: {
     next: function () {
-      this.socket.emit('race', this.playerinput)
+      this.socket.emit('race', { name: this.getPlayer, input: this.playerinput })
+      this.socket.emit('score', { score: this.currentScore, name: this.getPlayer })
     },
     gameStart () {
       setTimeout(() => {
         this.socket.emit('highscore', { score: this.currentScore, name: this.getPlayer })
         this.$router.push('/finish')
-      }, 10000)
+      }, 20000)
     },
     timer () {
       setInterval(() => {
@@ -64,6 +65,9 @@ export default {
     },
     allPlayer () {
       return this.$store.state.players
+    },
+    tableScore () {
+      return this.$store.state.liveScore
     }
   },
   watch: {
@@ -79,9 +83,8 @@ export default {
   },
   mounted () {
     this.socket.on('race', (payload) => {
-      if (payload === this.currentWord) {
-        this.$store.state.wordScore = payload
-        this.$store.commit('next')
+      if (payload.input === this.currentWord) {
+        this.$store.commit('next', payload)
       } else {
         this.$vToastify.error({
           title: 'Wrong!',
@@ -93,6 +96,10 @@ export default {
     })
     this.socket.on('highscore', (payload) => {
       this.$store.commit('SET_HIGHSCORE', payload)
+    })
+    this.socket.on('score', (payload) => {
+      console.log(payload, 'OAWJDOANDONASOIN')
+      this.$store.commit('LIVE_SCORE', payload)
     })
   }
 
