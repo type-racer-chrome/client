@@ -16,20 +16,26 @@ export default new Vuex.Store({
       'Wochkrautzenmach',
       'Purgatoriumexcretum',
       'Purwadhika',
-      'Hacktiv8'
+      'Hacktiv8',
+      'Tamara',
+      'Bottlecap',
+      'Ubermensch',
+      'Blitzkrieg',
+      'Azcapotzalco'
     ],
     wordIndex: 0,
     wordScore: 0,
     playerScore: 0,
     player: '',
-    // currentWord: 0
+    round: 1,
     finished: false,
     highScore: []
   },
   mutations: {
     next: function (state) {
       state.playerScore += state.arrayOfWords[state.wordIndex].length
-      state.wordIndex++
+      state.wordIndex = Math.floor(Math.random() * state.arrayOfWords.length)
+      state.round++
       if (state.wordIndex >= state.arrayOfWords.length) {
         state.finished = true
       }
@@ -49,6 +55,7 @@ export default new Vuex.Store({
         name: payload.name,
         highScore: payload.score
       })
+    },
     DELETE_USER (state, index) {
       state.players.splice(index, 1)
       console.log(state.players)
