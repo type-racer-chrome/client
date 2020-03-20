@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div>
-      <p class="p-lead">final score</p>
+      <h3 class="p-lead">final score</h3>
     </div>
     <div class="final-mid">
       <div v-for="score in tableScore" :key="score">
@@ -23,7 +23,7 @@ export default {
   methods: {
     redirToLandingPage: function () {
       this.$router.push('/')
-      this.socket.emit('resetPlayer')
+      socket.emit('resetPlayer')
       // this.socket.emit('disconnect')
     }
   },
@@ -32,11 +32,11 @@ export default {
   },
   computed: {
     tableScore () {
-      return this.$store.state.highScore
-    },
-    socket () {
-      return this.$store.state.socket
+      return this.$store.getters.sortScore
     }
+    // socket () {
+    //   return this.$store.state.socket
+    // }
   }
 }
 </script>

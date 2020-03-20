@@ -62,5 +62,10 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+  },
+  getters: {
+    sortScore: state => {
+      return state.highScore.reverse()
+    }
   }
 })
