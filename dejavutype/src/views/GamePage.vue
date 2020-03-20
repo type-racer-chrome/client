@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       playerinput: '',
-      time: '0'
+      time: '10'
     }
   },
   methods: {
@@ -83,7 +83,11 @@ export default {
         this.$store.state.wordScore = payload
         this.$store.commit('next')
       } else {
-        alert('Wrong!')
+        this.$vToastify.error({
+          title: 'Wrong!',
+          body: 'Check your spelling or whatever',
+          class: 'toaster'
+        })
       }
       this.playerinput = ''
     })
@@ -96,6 +100,9 @@ export default {
 </script>
 
 <style>
+.toaster {
+  font-family: 'Reem Kufi', sans-serif!important;
+}
 .game-page {
   height: 100%;
   display: flex;
