@@ -3,6 +3,7 @@
     <div>
     <div>
         <div class="">
+          <i class="fas fa-trophy fa-10x"></i>
           <h2>THE WINNER IS</h2>
           <h1>{{tableScore[0].name}}</h1>
           <h2>{{tableScore[0].highScore}}</h2>
