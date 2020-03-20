@@ -1,26 +1,25 @@
 <template>
   <div class="game-page">
     <div class="command">
-      <p class="p-lead">Time: {{ time }}</p>
-      <p class="p-lead p-lead-special">type this word quickly, {{ getPlayer }}! Your score: {{ currentScore }}</p>
-      <p class="word">{{ currentWord }}</p>
+      <p class="p-lead p-lead-special">type this word quickly, {{getPlayer}} ! Your score: {{ currentScore }}</p>
+      <p class="word">{{ currentWord }}</p>``
       <form v-on:submit.prevent="next" class="full-form">
         <input v-model="playerinput" class="input-form extended" type="text" placeholder="go type as fast as possible!">
       </form>
     </div>
-    <div class="players-stats">
-      <p>adam: 9</p>
-      <p>adam: 15</p>
-      <p>thomas: 9</p>
-      <p>tamara: 9</p>
-      <p>adam: 21</p>
-      <p>thomas: 15</p>
-      <p>adam: 9</p>
-      <p>adam: 15</p>
-      <p>thomas: 9</p>
-      <p>tamara: 9</p>
-      <p>adam: 21</p>
-      <p>thomas: 15</p>
+    <div class="big-space">
+      <div class="left">
+        <p class="tag">{{ getPlayer }} All score: {{ currentScore }}</p>
+        <form v-on:submit.prevent="next">
+          <input class="input-form extended" type="text" v-model="playerinput" placeholder="player ngetik disini">
+        </form>
+      </div>
+      <div class="right">
+        <div class="tag">score</div>
+        <div class="scores">
+          <p v-for="(user, index) in tableScore" :key="index" >{{user.name}}: {{currentScore}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,23 +30,19 @@ export default {
   data () {
     return {
       playerinput: '',
-      time: '0'
+      time: '10'
     }
   },
   methods: {
     next: function () {
-      if (this.playerinput === this.currentWord) {
-        this.$store.state.wordScore = this.currentWord.length
-        this.$store.commit('next')
-      } else {
-        alert('Wrong!')
-      }
-      this.playerinput = ''
+      this.socket.emit('race', { name: this.getPlayer, input: this.playerinput })
+      this.socket.emit('score', { score: this.currentScore, name: this.getPlayer })
     },
     gameStart () {
       setTimeout(() => {
+        this.socket.emit('highscore', { score: this.currentScore, name: this.getPlayer })
         this.$router.push('/finish')
-      }, 36000)
+      }, 20000)
     },
     timer () {
       setInterval(() => {
@@ -64,6 +59,15 @@ export default {
     },
     getPlayer: function () {
       return this.$store.state.player
+    },
+    socket () {
+      return this.$store.state.socket
+    },
+    allPlayer () {
+      return this.$store.state.players
+    },
+    tableScore () {
+      return this.$store.state.liveScore
     }
   },
   watch: {
@@ -76,11 +80,36 @@ export default {
   created () {
     this.gameStart()
     this.timer()
+  },
+  mounted () {
+    this.socket.on('race', (payload) => {
+      if (payload.input === this.currentWord) {
+        this.$store.commit('next', payload)
+      } else {
+        this.$vToastify.error({
+          title: 'Wrong!',
+          body: 'Check your spelling or whatever',
+          class: 'toaster'
+        })
+      }
+      this.playerinput = ''
+    })
+    this.socket.on('highscore', (payload) => {
+      this.$store.commit('SET_HIGHSCORE', payload)
+    })
+    this.socket.on('score', (payload) => {
+      console.log(payload, 'OAWJDOANDONASOIN')
+      this.$store.commit('LIVE_SCORE', payload)
+    })
   }
+
 }
 </script>
 
 <style>
+.toaster {
+  font-family: 'Reem Kufi', sans-serif!important;
+}
 .game-page {
   height: 100%;
   display: flex;

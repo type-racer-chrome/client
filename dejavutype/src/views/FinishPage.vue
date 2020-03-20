@@ -1,13 +1,12 @@
 <template>
   <div class="page">
     <div>
-      <p class="p-lead">final score</p>
+      <h3 class="p-lead">final score</h3>
     </div>
     <div class="final-mid">
-      <FinalScoreCard/>
-      <FinalScoreCard/>
-      <FinalScoreCard/>
-      <FinalScoreCard/>
+      <div v-for="score in tableScore" :key="score.id">
+      <FinalScoreCard :score="score"/>
+      </div>
     </div>
     <div class="footer quit-only">
       <button @click="redirToLandingPage" class="my-btn">quit</button>
@@ -16,16 +15,28 @@
 </template>
 
 <script>
+import socket from '../config/socket'
 import FinalScoreCard from '../components/FinalScoreCard.vue'
+
 export default {
   name: 'FinishPage',
   methods: {
     redirToLandingPage: function () {
       this.$router.push('/')
+      socket.emit('resetPlayer')
+      // this.socket.emit('disconnect')
     }
   },
   components: {
     FinalScoreCard
+  },
+  computed: {
+    tableScore () {
+      return this.$store.getters.sortScore
+    }
+    // socket () {
+    //   return this.$store.state.socket
+    // }
   }
 }
 </script>
