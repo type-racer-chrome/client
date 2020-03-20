@@ -27,12 +27,9 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 // import Player from '../components/Player.vue'
-=======
 import socket from '../config/socket'
 
->>>>>>> origin
 export default {
   name: 'WaitingRoom',
   methods: {
