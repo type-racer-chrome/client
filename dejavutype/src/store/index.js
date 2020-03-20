@@ -40,15 +40,10 @@ export default new Vuex.Store({
       state.player = name
     },
     ADD_PLAYERS (state, player) {
+      console.log(player)
+      // console.log('Kehit satu-satu')
+      // console.log(state.players)
       state.players.push(player)
-    },
-    LOGOUT (state, payload) {
-      state.players.filter((el, index) => {
-        if (el === payload) {
-          const test = state.players.slice(0, index)
-          state.players = test
-        }
-      })
     },
     SET_HIGHSCORE (state, payload) {
       console.log('AKU MASUK YEEY')
@@ -56,6 +51,10 @@ export default new Vuex.Store({
         name: payload.name,
         highScore: payload.score
       })
+    DELETE_USER (state, index) {
+      state.players.splice(index, 1)
+      console.log(state.players)
+      console.log('DELET DATA AAAAA', index)
     }
   },
   actions: {
