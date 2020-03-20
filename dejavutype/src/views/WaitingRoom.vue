@@ -1,7 +1,7 @@
 <template>
   <div class="page-row">
     <div class="left">
-      <i @click="redirToLandingPage" class="fas fa-angle-left fa-8x"></i>
+      <!-- <i @click="redirToLandingPage" class="fas fa-angle-left fa-8x"></i> -->
     </div>
     <div class="main">
       <div class="upper">
@@ -11,7 +11,7 @@
       {{players}}
       <div class="middle">
         <div
-          v-for="player in players"
+          v-for="player in playersReady"
           :key="player.id">
           <div class="players">
             <h5>{{player}}</h5>
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-// import Player from '../components/Player.vue'
 export default {
   name: 'WaitingRoom',
   methods: {
@@ -36,21 +35,29 @@ export default {
       this.socket.emit('startGame', 'game mulaaaaii')
     },
     redirToLandingPage: function () {
-      this.socket.emit('logout', localStorage.getItem('username'))
+      this.socket.emit('backToLandingPage', localStorage.username)
       this.$router.push('/')
+      localStorage.clear()
     }
   },
   computed: {
     socket () {
       return this.$store.state.socket
     },
-    players () {
+    playersReady () {
       return this.$store.state.players
     }
   },
   created () {
-    this.socket.on('gamePlay', () => {
+    // this.socket.on('joinGame', (name) => {
+    //   this.$store.commit('ADD_PLAYERS', name)
+    //   console.log(this.$store.state.players)
+    //   console.log('berapa kali')
+    // })
+
+    this.socket.on('gamePlay', (msg) => {
       this.$store.commit('insertPlayer', localStorage.getItem('username'))
+      console.log(msg)
       this.$router.push('/game')
     })
   }

@@ -4,7 +4,8 @@
     <h2 class="title">dejavutype</h2>
     <p class="tag">please enter your name</p>
     <form @submit.prevent="redirToWaitingRoom">
-        <input class="input-form" type="text" placeholder="noob99" v-model="username">
+        <input class="input-form" v-model="username" type="text" placeholder="noob99">
+        <!-- <button type="submit" class="my-btn-go">GO!</button> -->
     </form>
   </div>
 </template>
@@ -21,20 +22,21 @@ export default {
   },
   methods: {
     redirToWaitingRoom: function () {
-      // if (this.username.length > 0) {
-      this.socket.emit('joinGame', this.username)
-      localStorage.setItem('username', this.username)
-      //   this.$vToastify.success({
-      //     title: `welcome ${this.username}`,
-      //     body: 'please waiting for another opponent'
-      //   })
-      this.$router.push('/waitingroom')
-      // } else {
-      //   this.$vToastify.error({
-      //     title: 'Hey!',
-      //     body: 'You have tell your name :('
-      //   })
-      // }
+      if (this.username.length > 0) {
+        this.socket.emit('joinGame', this.username)
+
+        localStorage.setItem('username', this.username)
+        this.$vToastify.success({
+          title: `welcome ${this.username}`,
+          body: 'please waiting for another opponent'
+        })
+        this.$router.push('/waitingroom')
+      } else {
+        this.$vToastify.error({
+          title: 'Hey!',
+          body: 'You have tell your name :('
+        })
+      }
     }
   },
   computed: {
@@ -45,9 +47,14 @@ export default {
   created () {
     this.socket.on('joinGame', (name) => {
       this.$store.commit('ADD_PLAYERS', name)
+      console.log(this.$store.state.players)
+      console.log('berapa kali')
     })
-    this.socket.on('disconnect', (payload) => {
-      this.$store.commit('LOGOUT', payload)
+
+    this.socket.on('deleteUser', (username) => {
+      const index = this.$store.state.players.indexOf(username)
+      // console.log(index, 'INI INDEXXXXX')
+      this.$store.commit('DELETE_USER', index)
     })
   }
 }

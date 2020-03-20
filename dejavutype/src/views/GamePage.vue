@@ -1,6 +1,5 @@
 <template>
   <div class="game-page">
-    {{time}}
     <div class="command">
       <p class="p-lead p-lead-special">type this word quickly, {{getPlayer}} ! Your score: {{ currentScore }}</p>
       <p class="word">{{ currentWord }}</p>``
