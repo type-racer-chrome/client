@@ -8,6 +8,7 @@
         <p class="blinking">...waiting for another player to join...</p>
         <p>players joined:</p>
       </div>
+      {{players}}
       <div class="middle">
         <div
           v-for="player in playersReady"
@@ -55,6 +56,7 @@ export default {
     // })
 
     this.socket.on('gamePlay', (msg) => {
+      this.$store.commit('insertPlayer', localStorage.getItem('username'))
       console.log(msg)
       this.$router.push('/game')
     })

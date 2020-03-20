@@ -23,11 +23,12 @@ export default new Vuex.Store({
     playerScore: 0,
     player: '',
     // currentWord: 0
-    finished: false
+    finished: false,
+    highScore: []
   },
   mutations: {
     next: function (state) {
-      state.playerScore += state.wordScore
+      state.playerScore += state.arrayOfWords[state.wordIndex].length
       state.wordIndex++
       if (state.wordIndex >= state.arrayOfWords.length) {
         state.finished = true
@@ -42,6 +43,12 @@ export default new Vuex.Store({
       // console.log(state.players)
       state.players.push(player)
     },
+    SET_HIGHSCORE (state, payload) {
+      console.log('AKU MASUK YEEY')
+      state.highScore.push({
+        name: payload.name,
+        highScore: payload.score
+      })
     DELETE_USER (state, index) {
       state.players.splice(index, 1)
       console.log(state.players)
@@ -49,7 +56,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-
   },
   modules: {
   }

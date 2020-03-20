@@ -4,10 +4,9 @@
       <p class="p-lead">final score</p>
     </div>
     <div class="final-mid">
-      <FinalScoreCard/>
-      <FinalScoreCard/>
-      <FinalScoreCard/>
-      <FinalScoreCard/>
+      <div v-for="score in tableScore" :key="score">
+      <FinalScoreCard :score="score"/>
+      </div>
     </div>
     <div class="footer quit-only">
       <button @click="redirToLandingPage" class="my-btn">quit</button>
@@ -26,6 +25,11 @@ export default {
   },
   components: {
     FinalScoreCard
+  },
+  computed: {
+    tableScore () {
+      return this.$store.state.highScore
+    }
   }
 }
 </script>
