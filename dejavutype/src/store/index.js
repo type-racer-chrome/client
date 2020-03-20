@@ -16,20 +16,29 @@ export default new Vuex.Store({
       'Wochkrautzenmach',
       'Purgatoriumexcretum',
       'Purwadhika',
-      'Hacktiv8'
+      'Hacktiv8',
+      'Tamara',
+      'Bottlecap',
+      'Ubermensch',
+      'Blitzkrieg',
+      'Azcapotzalco'
     ],
     wordIndex: 0,
     wordScore: 0,
     playerScore: 0,
     player: '',
-    // currentWord: 0
+    round: 1,
     finished: false,
-    highScore: []
+    highScore: [],
+    tableScore: [],
+    liveScore: []
   },
   mutations: {
-    next: function (state) {
+    next: function (state, payload) {
+      state.tableScore.push(payload)
       state.playerScore += state.arrayOfWords[state.wordIndex].length
-      state.wordIndex++
+      state.wordIndex = Math.floor(Math.random() * state.arrayOfWords.length)
+      state.round++
       if (state.wordIndex >= state.arrayOfWords.length) {
         state.finished = true
       }
@@ -38,14 +47,26 @@ export default new Vuex.Store({
       state.player = name
     },
     ADD_PLAYERS (state, player) {
-      console.log(player)
-      // console.log('Kehit satu-satu')
-      // console.log(state.players)
       state.players.push(player)
+    },
+    LOGOUT (state, payload) {
+      state.players.filter((el, index) => {
+        if (el === payload) {
+          const test = state.players.slice(0, index)
+          state.players = test
+        }
+      })
     },
     SET_HIGHSCORE (state, payload) {
       console.log('AKU MASUK YEEY')
       state.highScore.push({
+        name: payload.name,
+        highScore: payload.score
+      })
+    },
+    LIVE_SCORE (state, payload) {
+      console.log(payload)
+      state.liveScore.push({
         name: payload.name,
         highScore: payload.score
       })
