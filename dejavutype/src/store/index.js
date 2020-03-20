@@ -58,14 +58,12 @@ export default new Vuex.Store({
       })
     },
     SET_HIGHSCORE (state, payload) {
-      console.log('AKU MASUK YEEY')
       state.highScore.push({
         name: payload.name,
         highScore: payload.score
       })
     },
     LIVE_SCORE (state, payload) {
-      console.log(payload)
       state.liveScore.push({
         name: payload.name,
         highScore: payload.score
@@ -73,8 +71,6 @@ export default new Vuex.Store({
     },
     DELETE_USER (state, index) {
       state.players.splice(index, 1)
-      console.log(state.players)
-      console.log('DELET DATA AAAAA', index)
     },
     RESET_PLAYER (state) {
       state.players = []

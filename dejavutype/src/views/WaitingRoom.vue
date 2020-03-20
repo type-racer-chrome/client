@@ -65,7 +65,6 @@ export default {
 
     socket.on('gamePlay', (msg) => {
       this.$store.commit('insertPlayer', localStorage.getItem('username'))
-      console.log(msg)
       this.$router.push('/game')
     })
   },

@@ -47,14 +47,10 @@ export default {
     socket.open()
     socket.on('joinGame', (name) => {
       this.$store.commit('ADD_PLAYERS', name)
-      console.log(this.$store.state.players)
-      console.log('berapa kali')
     })
 
     socket.on('deleteUser', (username) => {
       const index = this.$store.state.players.indexOf(username)
-      console.log(username, 'INIIIIIIIIIIIII USERNAMEEEE')
-      // console.log(index, 'INI INDEXXXXX')
       socket.close()
       setTimeout(() => {
         socket.open()
