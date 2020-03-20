@@ -4,7 +4,7 @@
       <h3 class="p-lead">final score</h3>
     </div>
     <div class="final-mid">
-      <div v-for="score in tableScore" :key="score">
+      <div v-for="score in tableScore" :key="score.id">
       <FinalScoreCard :score="score"/>
       </div>
     </div>

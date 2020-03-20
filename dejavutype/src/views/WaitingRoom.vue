@@ -8,7 +8,6 @@
         <p class="blinking">...waiting for another player to join...</p>
         <p>players joined:</p>
       </div>
-      {{players}}
       <div class="middle">
         <div
           v-for="player in playersReady"
@@ -68,6 +67,9 @@ export default {
       console.log(msg)
       this.$router.push('/game')
     })
+  },
+  beforeDestroy () {
+    this.socket.off('joinGame')
   }
   // beforeDestroy () {
   //   socket.close()

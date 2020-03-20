@@ -10,6 +10,11 @@ export default {
   name: 'FinalScoreCard',
   props: {
     score: Object
+  },
+  data () {
+    return {
+      score1: localStorage.getItem('score')
+    }
   }
 }
 </script>
