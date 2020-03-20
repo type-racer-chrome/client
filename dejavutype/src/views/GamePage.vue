@@ -1,7 +1,7 @@
 <template>
   <div class="game-page">
     <div class="command">
-      <p class="p-lead p-lead-special">type this word quickly, {{getPlayer}} ! Your score: {{ currentScore }} [{{ time }}]</p>
+      <p class="p-lead p-lead-special">type this word quickly, {{getPlayer}} ! Your score: {{ currentScore }} [Time: {{ time }}]</p>
       <p class="word">{{ currentWord }}</p>
       <form v-on:submit.prevent="next" class="full-form">
         <input v-model="playerinput" class="input-form extended" type="text" placeholder="go type as fast as possible!">
@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       playerinput: '',
-      time: '10'
+      time: '0'
     }
   },
   methods: {
