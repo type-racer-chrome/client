@@ -4,8 +4,8 @@
     <h2 class="title">dejavutype</h2>
     <p class="tag">please enter your name</p>
     <form @submit.prevent="redirToWaitingRoom">
-        <input class="input-form" v-model="name" type="text" placeholder="noob99">
-        <button type="submit" class="my-btn-go">GO!</button>
+        <input class="input-form" v-model="username" type="text" placeholder="noob99">
+        <!-- <button type="submit" class="my-btn-go">GO!</button> -->
     </form>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
     redirToWaitingRoom: function () {
       if (this.username.length > 0) {
         this.socket.emit('joinGame', this.username)
+
         localStorage.setItem('username', this.username)
         this.$vToastify.success({
           title: `welcome ${this.username}`,
@@ -44,11 +45,11 @@ export default {
     }
   },
   created () {
-    // this.socket.on('joinGame', (name) => {
-    //   this.$store.commit('ADD_PLAYERS', name)
-    //   // console.log(this.$store.state.players)
-    //   console.log('berapa kali')
-    // })
+    this.socket.on('joinGame', (name) => {
+      this.$store.commit('ADD_PLAYERS', name)
+      console.log(this.$store.state.players)
+      console.log('berapa kali')
+    })
 
     this.socket.on('deleteUser', (username) => {
       const index = this.$store.state.players.indexOf(username)

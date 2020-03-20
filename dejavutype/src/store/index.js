@@ -44,6 +44,8 @@ export default new Vuex.Store({
     },
     DELETE_USER (state, index) {
       state.players.splice(index, 1)
+      console.log(state.players)
+      console.log('DELET DATA AAAAA', index)
     }
   },
   actions: {
