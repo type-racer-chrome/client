@@ -1,14 +1,13 @@
 <template>
   <div class="page-row">
     <div class="left">
-      <!-- <i @click="redirToLandingPage" class="fas fa-angle-left fa-8x"></i> -->
+      <i @click="redirToLandingPage" class="fas fa-angle-left fa-8x"></i>
     </div>
     <div class="main">
       <div class="upper">
         <p class="blinking">...waiting for another player to join...</p>
         <p>players joined:</p>
       </div>
-      {{players}}
       <div class="middle">
         <div
           v-for="player in playersReady"
@@ -60,6 +59,9 @@ export default {
       console.log(msg)
       this.$router.push('/game')
     })
+  },
+  beforeDestroy () {
+    this.socket.off('joinGame')
   }
 }
 </script>

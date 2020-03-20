@@ -25,11 +25,12 @@ export default new Vuex.Store({
     // currentWord: 0
     finished: false,
     highScore: [],
-    tableScore: []
+    tableScore: [],
+    liveScore: []
   },
   mutations: {
     next: function (state, payload) {
-      state.tableScore = payload
+      state.tableScore.push(payload)
       state.playerScore += state.arrayOfWords[state.wordIndex].length
       state.wordIndex++
       if (state.wordIndex >= state.arrayOfWords.length) {
@@ -40,10 +41,15 @@ export default new Vuex.Store({
       state.player = name
     },
     ADD_PLAYERS (state, player) {
-      console.log(player)
-      // console.log('Kehit satu-satu')
-      // console.log(state.players)
       state.players.push(player)
+    },
+    LOGOUT (state, payload) {
+      state.players.filter((el, index) => {
+        if (el === payload) {
+          const test = state.players.slice(0, index)
+          state.players = test
+        }
+      })
     },
     SET_HIGHSCORE (state, payload) {
       console.log('AKU MASUK YEEY')
@@ -51,10 +57,13 @@ export default new Vuex.Store({
         name: payload.name,
         highScore: payload.score
       })
-    DELETE_USER (state, index) {
-      state.players.splice(index, 1)
-      console.log(state.players)
-      console.log('DELET DATA AAAAA', index)
+    },
+    LIVE_SCORE (state, payload) {
+      console.log(payload)
+      state.liveScore.push({
+        name: payload.name,
+        highScore: payload.score
+      })
     }
   },
   actions: {
