@@ -27,6 +27,7 @@
 </template>
 
 <script>
+// import Player from '../components/Player.vue'
 import socket from '../config/socket'
 
 export default {
