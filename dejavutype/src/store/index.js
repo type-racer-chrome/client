@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    socket: io('http://localhost:3000'),
+    socket: io('https://limitless-refuge-83119.herokuapp.com/'),
     players: [],
     arrayOfWords: [
       'JavaScript',

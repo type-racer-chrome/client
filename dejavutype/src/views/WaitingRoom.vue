@@ -27,6 +27,7 @@
 </template>
 
 <script>
+// import Player from '../components/Player.vue'
 import socket from '../config/socket'
 
 export default {
@@ -64,7 +65,6 @@ export default {
 
     socket.on('gamePlay', (msg) => {
       this.$store.commit('insertPlayer', localStorage.getItem('username'))
-      console.log(msg)
       this.$router.push('/game')
     })
   },
