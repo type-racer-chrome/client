@@ -83,7 +83,10 @@ export default {
         this.$store.state.wordScore = payload
         this.$store.commit('next')
       } else {
-        alert('Wrong!')
+        this.$vToastify.error({
+          title: 'Wrong!',
+          body: 'Check your spelling or whatever'
+        })
       }
       this.playerinput = ''
     })
