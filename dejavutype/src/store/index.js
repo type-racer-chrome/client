@@ -24,10 +24,12 @@ export default new Vuex.Store({
     player: '',
     // currentWord: 0
     finished: false,
-    highScore: []
+    highScore: [],
+    tableScore: []
   },
   mutations: {
-    next: function (state) {
+    next: function (state, payload) {
+      state.tableScore = payload
       state.playerScore += state.arrayOfWords[state.wordIndex].length
       state.wordIndex++
       if (state.wordIndex >= state.arrayOfWords.length) {

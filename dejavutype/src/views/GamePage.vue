@@ -18,7 +18,7 @@
       <div class="right">
         <div class="tag">score</div>
         <div class="scores">
-          <p v-for="user in allPlayer" :key="user">{{user}}</p>
+          <p v-for="user in tableScore" :key="user">{{user}}</p>
         </div>
       </div>
     </div>
@@ -36,13 +36,13 @@ export default {
   },
   methods: {
     next: function () {
-      this.socket.emit('race', this.playerinput)
+      this.socket.emit('race', { name: this.getPlayer, score: this.currentScore, input: this.playerinput })
     },
     gameStart () {
       setTimeout(() => {
         this.socket.emit('highscore', { score: this.currentScore, name: this.getPlayer })
         this.$router.push('/finish')
-      }, 10000)
+      }, 360000)
     },
     timer () {
       setInterval(() => {
@@ -65,6 +65,9 @@ export default {
     },
     allPlayer () {
       return this.$store.state.players
+    },
+    tableScore () {
+      return this.$store.state.tableScore
     }
   },
   watch: {
@@ -80,9 +83,8 @@ export default {
   },
   mounted () {
     this.socket.on('race', (payload) => {
-      if (payload === this.currentWord) {
-        this.$store.state.wordScore = payload
-        this.$store.commit('next')
+      if (payload.input === this.currentWord) {
+        this.$store.commit('next', payload)
       } else {
         alert('Wrong!')
       }
